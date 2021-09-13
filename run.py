@@ -11,7 +11,7 @@ class SplitWavAudioMubin():
     def __init__(self, folder, filename):
         self.folder = folder
         self.filename = filename
-        self.filepath = folder + '\\' + filename
+        self.filepath = folder + '/' + filename
         
         self.audio = AudioSegment.from_wav(self.filepath)
     
