@@ -77,6 +77,7 @@ class watchdog:
 if __name__ == "__main__":
     WATCHDOG = watchdog()
     WATCHDOG.run()
+    print('test')
 
     os.startfile("C:/Users/pmw18/Downloads/DGB_R&D_Project/dgb_reporter/word/minutes.docx")   ##word와 연동 하는 코드 
 
