@@ -1,5 +1,12 @@
+from konlpy.tag import Kkma, Okt
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.preprocessing import normalize
+from IPython.core.display import display, HTML
 from argparse import ArgumentParser
 import numpy as np
+import matplotlib.pyplot as plt
+import kss
 import docx
 from docx.shared import Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
