@@ -11,7 +11,7 @@ class SplitWavAudioMubin():
     def __init__(self, folder, filename):
         self.folder = folder
         self.filename = filename
-        self.filepath = folder + '/' + filename
+        self.filepath = folder + '\\' + filename
         
         self.audio = AudioSegment.from_wav(self.filepath)
     
@@ -50,7 +50,7 @@ class watchdog:
         NewFileList = self.FileList				 
         for fileListName in NewFileList:				
             self.checkCount = 0
-            ip, text = ETRI.run(fileListName.split("\\")[-1])		## text  : stt 결과 spring형태의 text 결과가 저장된 변수값
+            ip, text = ETRI.run(fileListName.split("/")[-1])		## text  : stt 결과 spring형태의 text 결과가 저장된 변수값
             if ip in self.ipDict:				## ip(interpretation percent) : 요약과 keyword 추출시, 각 문장단위로 앞 문장과의 연관성과 전체 문장내에서의 해당 문장의 영향도를 분석하기 위한 변수 
                 self.ipDict[ip] += text
             else:
