@@ -22,7 +22,7 @@ class SplitWavAudioMubin():
         t1 = from_min * 18 * 1000
         t2 = to_min * 18 * 1000
         split_audio = self.audio[t1:t2]
-        split_audio.export("C:/Users/pmw18/Downloads/DGB_R&D_Project/dgb_reporter/wav/"+ split_filename, format="wav")
+        split_audio.export("./wav/"+ split_filename, format="wav")
         
     def multiple_split(self, min_per_split):
         total_mins = math.ceil(self.get_duration() / 18)
@@ -39,7 +39,7 @@ class watchdog:
         self.FileList = list()
         self.checkCount = 0
     def run(self):
-        folder = 'C:/Users/pmw18/Downloads/DGB_R&D_Project/dgb_reporter'
+        folder = './'
         file = 'YTN_bong_3.wav'
         split_wav = SplitWavAudioMubin(folder, file)                                 
         split_wav.multiple_split(min_per_split=1)			## 전체 wav파일을 1분 이하의 파일들로 분리함 
@@ -75,6 +75,6 @@ if __name__ == "__main__":
     WATCHDOG.run()
     print('test')
 
-    os.startfile("C:/Users/pmw18/Downloads/DGB_R&D_Project/dgb_reporter/word/minutes.docx")   ##word와 연동 하는 코드 
+    os.startfile("./word/minutes.docx")   ##word와 연동 하는 코드 
 
 
