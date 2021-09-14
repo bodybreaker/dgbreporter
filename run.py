@@ -28,7 +28,7 @@ class SplitWavAudioMubin():
         total_mins = math.ceil(self.get_duration() / 18)
         for i in range(0, total_mins, min_per_split):
             #split_fn = str(0) + '_' + str(i) + ".wav"
-            split_fn = str(0)+".wav"
+            split_fn = str(i)+".wav"
             self.single_split(i, i+min_per_split, split_fn)
             print(str(i) + ' Done')
             if i == total_mins - min_per_split:
