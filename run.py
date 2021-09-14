@@ -27,8 +27,7 @@ class SplitWavAudioMubin():
     def multiple_split(self, min_per_split):
         total_mins = math.ceil(self.get_duration() / 18)
         for i in range(0, total_mins, min_per_split):
-            #split_fn = str(0) + '_' + str(i) + ".wav"
-            split_fn = str(0)+ str(0)+ str(i) + ".wav"
+            split_fn = str(0) + '_' + str(i) + ".wav"
             self.single_split(i, i+min_per_split, split_fn)
             print(str(i) + ' Done')
             if i == total_mins - min_per_split:
@@ -44,7 +43,9 @@ class watchdog:
         file = 'YTN_bong_3.wav'
         split_wav = SplitWavAudioMubin(folder, file)                                 
         split_wav.multiple_split(min_per_split=1)			## 전체 wav파일을 1분 이하의 파일들로 분리함 
-        self.FileList = sorted(glob("./wav/*"))     ## 분리된 wav 파일을 glob으로 읽음
+        #self.FileList = sorted(glob("./wav/*"))     ## 분리된 wav 파일을 glob으로 읽음
+        lst = os.listdir(glob("./wav/*"))
+        self.FileListlst.sort()
         print(self.FileList)
         ETRI= ETRI_STT()					## ETRI stt를 활용하여 읽음 
         print("Start...")
