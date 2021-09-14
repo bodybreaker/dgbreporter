@@ -43,7 +43,7 @@ class watchdog:
         file = 'YTN_bong_3.wav'
         split_wav = SplitWavAudioMubin(folder, file)                                 
         split_wav.multiple_split(min_per_split=1)			## 전체 wav파일을 1분 이하의 파일들로 분리함 
-        self.FileList = sorted(glob("./wav/*"), key=os.path.getctime)     ## 분리된 wav 파일을 glob으로 읽음
+        self.FileList = sorted(glob("./wav/*"))     ## 분리된 wav 파일을 glob으로 읽음
         print(self.FileList)
         ETRI= ETRI_STT()					## ETRI stt를 활용하여 읽음 
         print("Start...")
