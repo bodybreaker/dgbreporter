@@ -6,6 +6,8 @@ import keywords
 from pydub import AudioSegment
 import math
 import natsort
+import time
+import concurrent.futures
 
 ###  원 파일을 1분 이하로 나누는 함수 ### 
 class SplitWavAudioMubin():    
@@ -35,6 +37,11 @@ class SplitWavAudioMubin():
             if i == total_mins - min_per_split:
                 print('All splited successfully')
 
+def etriThread(fileListName):
+    ETRI= ETRI_STT()
+    ip, text = ETRI.run(fileListName.split("/")[-1])
+    return ip,text
+
 class watchdog:
     def __init__(self):
         self.ipDict = dict()
@@ -52,23 +59,37 @@ class watchdog:
         print(self.FileList)
         ETRI= ETRI_STT()					## ETRI stt를 활용하여 읽음 
         print("Start...")
-        NewFileList = self.FileList				 
-        for fileListName in NewFileList:				
-            self.checkCount = 0
-            ip, text = ETRI.run(fileListName.split("/")[-1])		## text  : stt 결과 spring형태의 text 결과가 저장된 변수값
-            
-            print(ip)
-            
-            if ip in self.ipDict:				## ip(interpretation percent) : 요약과 keyword 추출시, 각 문장단위로 앞 문장과의 연관성과 전체 문장내에서의 해당 문장의 영향도를 분석하기 위한 변수 
-                self.ipDict[ip] += text
-            else:
-                self.ipDict[ip] = text
-                
-        #time.sleep(5) 
-        self.checkCount += 1
-        text = " "
+        NewFileList = self.FileList			
 
-        text += self.ipDict['0']
+
+        # 쓰레드풀 사용을 위함
+        executor = concurrent.futures.ThreadPoolExecutor(max_workers=10)
+        
+        for fileListName in NewFileList:
+            executor.submit(etriThread(fileListName=fileListName))
+
+
+
+
+
+        ##
+        # for fileListName in NewFileList:				
+        #     self.checkCount = 0
+        #     ip, text = ETRI.run(fileListName.split("/")[-1])		## text  : stt 결과 spring형태의 text 결과가 저장된 변수값
+            
+        #     print(ip)
+            
+        #     if ip in self.ipDict:				## ip(interpretation percent) : 요약과 keyword 추출시, 각 문장단위로 앞 문장과의 연관성과 전체 문장내에서의 해당 문장의 영향도를 분석하기 위한 변수 
+        #         self.ipDict[ip] += text
+        #     else:
+        #         self.ipDict[ip] = text
+                
+        # #time.sleep(5) 
+        # self.checkCount += 1
+        # text = " "
+
+        # text += self.ipDict['0']
+        ##
 
         #이부분 핖요하지않읋거같은데?
         #for key in self.ipDict.keys():				## kss NLP kaggle library 에서 제공하는 .key() 함수를 통해 문장을 단어단위로 분류함.  
