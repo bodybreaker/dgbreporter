@@ -5,6 +5,7 @@ from etri_stt import ETRI_STT
 import keywords
 from pydub import AudioSegment
 import math
+import natsort
 
 ###  원 파일을 1분 이하로 나누는 함수 ### 
 class SplitWavAudioMubin():    
@@ -44,10 +45,9 @@ class watchdog:
         file = 'YTN_bong_3.wav'
         split_wav = SplitWavAudioMubin(folder, file)                                 
         split_wav.multiple_split(min_per_split=1)			## 전체 wav파일을 1분 이하의 파일들로 분리함 
-        self.FileList = sorted(glob("./wav/*"))     ## 분리된 wav 파일을 glob으로 읽음
-        #lst = os.listdir("./wav/")
-        #lst.sort()
-        #self.FileList = lst
+        #self.FileList = sorted(glob("./wav/*"))     ## 분리된 wav 파일을 glob으로 읽음
+        lst = os.listdir("./wav/")
+        self.FileList = natsort.natsorted(lst)
         print(self.FileList)
         ETRI= ETRI_STT()					## ETRI stt를 활용하여 읽음 
         print("Start...")
