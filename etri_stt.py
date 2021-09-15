@@ -36,6 +36,8 @@ class ETRI_STT:
             body=json.dumps(requestJson)
         ) 
 
+        print(response);
+
 
         text = " "
 
