@@ -7,7 +7,8 @@ from pydub import AudioSegment
 import math
 import natsort
 import time
-import concurrent.futures
+from flask import Flask,request
+from werkzeug.utils import secure_filename
 
 ###  원 파일을 1분 이하로 나누는 함수 ### 
 class SplitWavAudioMubin():    
@@ -37,14 +38,15 @@ class SplitWavAudioMubin():
             if i == total_mins - min_per_split:
                 print('All splited successfully')
 class watchdog:
-    def __init__(self):
+    def __init__(self,fileName):
         self.ipDict = dict()
         self.FileList = list()
         self.checkCount = 0
+        self.fileName = fileName
     def run(self):
         folder = './'
         #file = 'YTN_bong_3.wav'
-        file = 'short.wav'
+        file = self.fileName
         split_wav = SplitWavAudioMubin(folder, file)                                 
         split_wav.multiple_split(min_per_split=1)			## 전체 wav파일을 1분 이하의 파일들로 분리함 
         #self.FileList = sorted(glob("./wav/*"))     ## 분리된 wav 파일을 glob으로 읽음
@@ -69,31 +71,44 @@ class watchdog:
         for fileListName in NewFileList:
             print('파일삭제 >> ',fileListName)
             os.remove('./wav/'+fileListName)
-        
-
-
 
         #time.sleep(5) 
         self.checkCount += 1
         text = " "
 
         text += self.ipDict['0']
-
-
         #이부분 핖요하지않읋거같은데?
         #for key in self.ipDict.keys():				## kss NLP kaggle library 에서 제공하는 .key() 함수를 통해 문장을 단어단위로 분류함.  
         #    text += self.ipDict[key]
 
         keywords.extract(text)				## stt 결과값인 text 변수를 요약 알고리즘 (keywords.py) 함수로 실행 후, 요약된 문단과 keyword 단어 리턴 호출함.
-        return
+        return text
+
+app = Flask(__name__)
+
+@app.route('/test')
+def user():
+    WATCHDOG = watchdog('short.wav')
+    text = WATCHDOG.run()
+    os.system('echo "회의록 요약본 첨부" | mail -s "[DGB Reporter] 회의 요약결과" bodybreaker@naver.com -A ./word/minutes_result.docx')
+    return text
+
+@app.route('/stt',methods=['POST'])
+def upload_file():
+    f = request.files['file']
+    f.save(secure_filename(f.filename))
+    WATCHDOG = watchdog(f.filename)
+    text = WATCHDOG.run()
+    os.system('echo "회의록 요약본 첨부" | mail -s "[DGB Reporter] 회의 요약결과" bodybreaker@naver.com -A ./word/minutes_result.docx')
+
+    return text
+
 
 if __name__ == "__main__":
-    WATCHDOG = watchdog()
-    WATCHDOG.run()
+    #WATCHDOG = watchdog()
+    #WATCHDOG.run()
     
-    
-    
-    print('test')
+    app.run(debug=True)
 
     #os.startfile("./word/minutes.docx")   ##word와 연동 하는 코드 
 
