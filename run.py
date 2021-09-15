@@ -42,7 +42,8 @@ class watchdog:
         self.checkCount = 0
     def run(self):
         folder = './'
-        file = 'YTN_bong_3.wav'
+        #file = 'YTN_bong_3.wav'
+        file = 'short.wav'
         split_wav = SplitWavAudioMubin(folder, file)                                 
         split_wav.multiple_split(min_per_split=1)			## 전체 wav파일을 1분 이하의 파일들로 분리함 
         #self.FileList = sorted(glob("./wav/*"))     ## 분리된 wav 파일을 glob으로 읽음
@@ -63,6 +64,8 @@ class watchdog:
         #time.sleep(5) 
         self.checkCount += 1
         text = " "
+        
+        print('keys() >> ',self.ipDict.keys())
         for key in self.ipDict.keys():				## kss NLP kaggle library 에서 제공하는 .key() 함수를 통해 문장을 단어단위로 분류함.  
             text += self.ipDict[key]
 
@@ -77,6 +80,9 @@ class watchdog:
 if __name__ == "__main__":
     WATCHDOG = watchdog()
     WATCHDOG.run()
+    
+    
+    
     print('test')
 
     #os.startfile("./word/minutes.docx")   ##word와 연동 하는 코드 
