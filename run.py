@@ -28,8 +28,8 @@ class SplitWavAudioMubin():
     def multiple_split(self, min_per_split):
         total_mins = math.ceil(self.get_duration() / 18)
         for i in range(0, total_mins, min_per_split):
-            #split_fn = str(0) + '_' + str(i) + ".wav"
-            split_fn = str(i)+".wav"
+            split_fn = str(0) + '_' + str(i) + ".wav"
+            #split_fn = str(i)+".wav"
             self.single_split(i, i+min_per_split, split_fn)
             print(str(i) + ' Done')
             if i == total_mins - min_per_split:
@@ -60,7 +60,7 @@ class watchdog:
             else:
                 self.ipDict[ip] = text
                 
-        time.sleep(5) 
+        #time.sleep(5) 
         self.checkCount += 1
         text = " "
         for key in self.ipDict.keys():				## kss NLP kaggle library 에서 제공하는 .key() 함수를 통해 문장을 단어단위로 분류함.  
@@ -79,6 +79,6 @@ if __name__ == "__main__":
     WATCHDOG.run()
     print('test')
 
-    os.startfile("./word/minutes.docx")   ##word와 연동 하는 코드 
+    #os.startfile("./word/minutes.docx")   ##word와 연동 하는 코드 
 
 
