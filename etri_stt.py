@@ -48,7 +48,7 @@ class ETRI_STT:
         rescode = data['result'];
         print('response>> ',rescode)
 
-        if rescode=='-1':
+        if rescode==-1:
             print('error >> ',data['reason']) 
             text=''
         else:
