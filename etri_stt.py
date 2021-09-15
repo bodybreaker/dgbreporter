@@ -45,8 +45,15 @@ class ETRI_STT:
         print("\n")
         print("--Transcript--")	
         data = json.loads(response.data.decode("utf-8", errors='ignore'))
-        print('response>> ',data['result'])
-        text=data['return_object']['recognized']
+        rescode = data['result'];
+        print('response>> ',rescode)
+
+        if rescode=='-1':
+            print('error >> ',data['reason']) 
+            text=''
+        else:
+            text=data['return_object']['recognized']
+
         
         print(text)
         
