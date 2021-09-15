@@ -160,5 +160,5 @@ def extract(extracted_text):
         
         templ = docx.Document('./word/minutes.docx')
         templ.tables[0].rows[5].cells[2].paragraphs[0].text += "%s\n\n%s\n\n%s"%(extracted_text,summarizedSentence,keywords)
-        templ.save('./word/minutes.docx')
+        templ.save('./word/minutes_result.docx')
     
