@@ -36,12 +36,6 @@ class SplitWavAudioMubin():
             print(str(i) + ' Done')
             if i == total_mins - min_per_split:
                 print('All splited successfully')
-
-def etriThread(fileListName):
-    ETRI= ETRI_STT()
-    ip, text = ETRI.run(fileListName.split("/")[-1])
-    return ip,text
-
 class watchdog:
     def __init__(self):
         self.ipDict = dict()
@@ -71,25 +65,31 @@ class watchdog:
 
 
 
-
-        ##
-        # for fileListName in NewFileList:				
-        #     self.checkCount = 0
-        #     ip, text = ETRI.run(fileListName.split("/")[-1])		## text  : stt 결과 spring형태의 text 결과가 저장된 변수값
+        for fileListName in NewFileList:				
+            self.checkCount = 0
+            ip, text = ETRI.run(fileListName.split("/")[-1])		## text  : stt 결과 spring형태의 text 결과가 저장된 변수값
             
-        #     print(ip)
+            print(ip)
             
-        #     if ip in self.ipDict:				## ip(interpretation percent) : 요약과 keyword 추출시, 각 문장단위로 앞 문장과의 연관성과 전체 문장내에서의 해당 문장의 영향도를 분석하기 위한 변수 
-        #         self.ipDict[ip] += text
-        #     else:
-        #         self.ipDict[ip] = text
-                
-        # #time.sleep(5) 
-        # self.checkCount += 1
-        # text = " "
+            if ip in self.ipDict:				## ip(interpretation percent) : 요약과 keyword 추출시, 각 문장단위로 앞 문장과의 연관성과 전체 문장내에서의 해당 문장의 영향도를 분석하기 위한 변수 
+                self.ipDict[ip] += text
+            else:
+                self.ipDict[ip] = text
 
-        # text += self.ipDict['0']
-        ##
+        # 완료된 파일 삭제
+        for fileListName in NewFileList:
+            print('파일삭제 >> ',fileListName)
+            os.remove(fileListName)
+        
+
+
+
+        #time.sleep(5) 
+        self.checkCount += 1
+        text = " "
+
+        text += self.ipDict['0']
+
 
         #이부분 핖요하지않읋거같은데?
         #for key in self.ipDict.keys():				## kss NLP kaggle library 에서 제공하는 .key() 함수를 통해 문장을 단어단위로 분류함.  
