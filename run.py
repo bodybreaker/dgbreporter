@@ -60,8 +60,6 @@ class watchdog:
             self.checkCount = 0
             ip, text = ETRI.run(fileListName.split("/")[-1])		## text  : stt 결과 spring형태의 text 결과가 저장된 변수값
             
-            print(ip)
-            
             if ip in self.ipDict:				## ip(interpretation percent) : 요약과 keyword 추출시, 각 문장단위로 앞 문장과의 연관성과 전체 문장내에서의 해당 문장의 영향도를 분석하기 위한 변수 
                 self.ipDict[ip] += text
             else:
@@ -70,7 +68,7 @@ class watchdog:
         # 완료된 파일 삭제
         for fileListName in NewFileList:
             print('파일삭제 >> ',fileListName)
-            os.remove(fileListName)
+            os.remove('./wav/'+fileListName)
         
 
 
