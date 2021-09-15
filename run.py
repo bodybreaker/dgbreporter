@@ -56,15 +56,6 @@ class watchdog:
         NewFileList = self.FileList			
 
 
-        # 쓰레드풀 사용을 위함
-        executor = concurrent.futures.ThreadPoolExecutor(max_workers=10)
-        
-        for fileListName in NewFileList:
-            executor.submit(etriThread(fileListName=fileListName))
-
-
-
-
         for fileListName in NewFileList:				
             self.checkCount = 0
             ip, text = ETRI.run(fileListName.split("/")[-1])		## text  : stt 결과 spring형태의 text 결과가 저장된 변수값
