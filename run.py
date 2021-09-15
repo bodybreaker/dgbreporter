@@ -99,7 +99,7 @@ def upload_file():
     f.save(secure_filename(f.filename))
     WATCHDOG = watchdog(f.filename)
     text = WATCHDOG.run()
-    os.system('echo "회의록 요약본 첨부" | mail -s "[DGB Reporter] 회의 요약결과" bodybreaker@naver.com -A ./word/minutes_result.docx')
+    os.system('echo "회의록 요약본 첨부" | mail -s "[DGB Reporter] 회의 요약결과" bodybreaker@naver.com,eric.yun8911@gmail.com -A ./word/minutes_result.docx')
 
     return text
 
