@@ -64,8 +64,13 @@ class watchdog:
         #time.sleep(5) 
         self.checkCount += 1
         text = " "
+
+        for key in self.ipDict.keys():	
         
-        print('keys() >> ',self.ipDict.keys())
+            print(key)
+
+
+
         for key in self.ipDict.keys():				## kss NLP kaggle library 에서 제공하는 .key() 함수를 통해 문장을 단어단위로 분류함.  
             text += self.ipDict[key]
 
